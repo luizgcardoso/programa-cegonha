@@ -3,6 +3,7 @@ import { Cidade } from "./Cidade"
 import { Bebe } from "./Bebe"
 import { Paciente } from "./Paciente"
 import { Profissional } from "./Profissional"
+import { Endereco } from "./Endereco"
 
 @Entity('pessoas')
 export class Pessoa {
@@ -57,7 +58,7 @@ export class Pessoa {
   @Column()
   tipoSanguineo: string
 
-  @Column()
+  @Column({nullable: true})
   comorbidades: string
 
   @Column()
@@ -88,4 +89,6 @@ export class Pessoa {
   @OneToOne(() => Profissional, profissional => profissional.pessoa)
   profissional: Profissional
 
+  @OneToMany(() => Endereco, endereco => endereco.pessoa)
+  enderecos: Endereco[]
 }
