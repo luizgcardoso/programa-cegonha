@@ -1,6 +1,6 @@
 
 import {Request, Response} from 'express'
-import { BadRequestError } from '../helpers/api-error';
+import { BadRequestError } from '../utils/api-error';
 export class PessoasController {
          
   async create(req: Request, res: Response) {

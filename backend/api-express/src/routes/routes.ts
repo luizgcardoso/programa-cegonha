@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { EstadosController } from "../controllers/EstadosController";
-import { ApiError, BadRequestError, NotFoundError } from "../helpers/api-error";
+import { ApiError, BadRequestError, NotFoundError } from "../utils/api-error";
 
 const routes = Router();
 
