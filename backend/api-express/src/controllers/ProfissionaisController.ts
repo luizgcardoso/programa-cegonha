@@ -1,12 +1,25 @@
 import { Request, Response } from "express";
 import { profissionaisRepository } from "../repositories/ProfissionaisRepository";
 import { createProfissionalSchema, updateProfissionalSchema } from "../schemas";
+import { pessoasRepository } from "../repositories";
+import { NotFoundError } from "../utils/api-error";
 
 export class ProfissionaisController {
   async create(req: Request, res: Response) {
     try {
+      const { idPessoa } = req.params;
+      const pessoa = await pessoasRepository.findOneBy({
+        id: Number(idPessoa),
+      });
+      if (!pessoa) {
+        throw new NotFoundError("Pessoa não encontrado");
+      }
+
       const validated = createProfissionalSchema.parse(req.body);
-      const newProfissional = profissionaisRepository.create(validated);
+      const newProfissional = profissionaisRepository.create({
+        ...validated,
+        pessoa,
+      });
       await profissionaisRepository.save(newProfissional);
       return res.status(201).json(newProfissional);
     } catch (error) {
@@ -19,9 +32,7 @@ export class ProfissionaisController {
 
   async findAll(req: Request, res: Response) {
     try {
-      const profissionais = await profissionaisRepository.find({
-        relations: ["pessoa", "areaCobertura"],
-      });
+      const profissionais = await profissionaisRepository.find();
       return res.status(200).json(profissionais);
     } catch (error) {
       console.log(error);
@@ -79,7 +90,11 @@ export class ProfissionaisController {
       if (!profissional) {
         return res.status(404).json({ message: "Profissional não encontrado" });
       }
-      await profissionaisRepository.delete(id);
+      await profissionaisRepository.update(id, {
+        dataExclusao: new Date(),
+        status: false,
+      });
+      await profissionaisRepository.softDelete(id);
       return res
         .status(200)
         .json({ message: "Profissional deletado com sucesso" });

@@ -72,13 +72,13 @@ routes.get("/estados/:id", estadosController.findById);
 routes.put("/estados/:id", estadosController.update);
 routes.delete("/estados/:id", estadosController.delete);
 
-routes.post("/cidades", cidadeController.create);
+routes.post("/cidades/:idEstado", cidadeController.create);
 routes.get("/cidades", cidadeController.findAll);
 routes.get("/cidades/:id", cidadeController.findById);
 routes.put("/cidades/:id", cidadeController.update);
 routes.delete("/cidades/:id", cidadeController.delete);
 
-routes.post("/profissionais", profissionaisController.create);
+routes.post("/profissionais/:idPessoa", profissionaisController.create);
 routes.get("/profissionais", profissionaisController.findAll);
 routes.get("/profissionais/:id", profissionaisController.findById);
 routes.put("/profissionais/:id", profissionaisController.update);
@@ -108,7 +108,11 @@ routes.get("/contatos/:id", contatoController.findById);
 routes.put("/contatos/:id", contatoController.update);
 routes.delete("/contatos/:id", contatoController.delete);
 
-routes.post("/enderecos", enderecoController.create);
+routes.post("/enderecos/pessoas/:idPessoa", enderecoController.createEndPessoa);
+routes.post(
+  "/enderecos/idResponsavel",
+  enderecoController.createEndResponsavel,
+);
 routes.get("/enderecos", enderecoController.findAll);
 routes.get("/enderecos/:id", enderecoController.findById);
 routes.put("/enderecos/:id", enderecoController.update);

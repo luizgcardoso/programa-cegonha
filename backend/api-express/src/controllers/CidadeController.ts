@@ -1,12 +1,21 @@
 import { Request, Response } from "express";
 import { cidadeRepository } from "../repositories/CidadeRepository";
 import { createCidadeSchema, updateCidadeSchema } from "../schemas";
+import { estadosRepository } from "../repositories";
 
 export class CidadeController {
   async create(req: Request, res: Response) {
     try {
+      const { idEstado } = req.params;
+      const estado = await estadosRepository.findOneBy({
+        id: Number(idEstado),
+      });
+      if (!estado) {
+        return res.status(404).json({ message: "Estado não identificado" });
+      }
       const validated = createCidadeSchema.parse(req.body);
       const newCidade = cidadeRepository.create(validated);
+      cidadeRepository.merge(newCidade, { estado: estado });
       await cidadeRepository.save(newCidade);
       return res.status(201).json(newCidade);
     } catch (error) {
@@ -17,9 +26,7 @@ export class CidadeController {
 
   async findAll(req: Request, res: Response) {
     try {
-      const cidades = await cidadeRepository.find({
-        relations: ["estado"],
-      });
+      const cidades = await cidadeRepository.find();
       return res.status(200).json(cidades);
     } catch (error) {
       console.log(error);

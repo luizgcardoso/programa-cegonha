@@ -7,6 +7,7 @@ import {
   OneToOne,
   ManyToMany,
   JoinTable,
+  DeleteDateColumn,
 } from "typeorm";
 import { Pessoa } from "./Pessoa.entity";
 import { Gestacao } from "./Gestacao.entity";
@@ -35,7 +36,7 @@ export class Paciente {
   @Column({ nullable: true })
   dataAlteracao: Date;
 
-  @Column({ nullable: true })
+  @DeleteDateColumn({ nullable: true })
   dataExclusao: Date;
 
   @Column()

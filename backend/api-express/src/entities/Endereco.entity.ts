@@ -35,12 +35,6 @@ export class Endereco {
   @Column()
   status: boolean;
 
-  @Column()
-  dataCriacao: Date;
-
-  @Column({ nullable: true })
-  dataAlteracao: Date;
-
   @ManyToOne(() => Pessoa, (pessoa) => pessoa.enderecos, { nullable: true })
   @JoinColumn({ name: "idPessoa" })
   pessoa: Pessoa;

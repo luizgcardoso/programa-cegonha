@@ -1,12 +1,82 @@
 import { Request, Response } from "express";
 import { enderecoRepository } from "../repositories/EnderecoRepository";
-import { createEnderecoSchema, updateEnderecoSchema } from "../schemas";
+import {
+  createEnderecoPessoaSchema,
+  createEnderecoResponsavelSchema,
+  updateEnderecoSchema,
+} from "../schemas";
+import {
+  cidadeRepository,
+  estadosRepository,
+  pessoasRepository,
+  responsaveisRepository,
+} from "../repositories";
+import ViaCepService from "../services/ViaCepService";
+import { NotFoundError } from "../utils/api-error";
 
 export class EnderecoController {
-  async create(req: Request, res: Response) {
+  async createEndPessoa(req: Request, res: Response) {
     try {
-      const validated = createEnderecoSchema.parse(req.body);
+      const { idPessoa } = req.params;
+      const pessoa = await pessoasRepository.findOneBy({
+        id: Number(idPessoa),
+      });
+      if (!pessoa) {
+        throw new NotFoundError("Pessoa não encontrado");
+      }
+
+      const validated = createEnderecoPessoaSchema.parse(req.body);
+
+      const enderecoViaCep = await ViaCepService.buscar(validated.cep);
+      console.log(enderecoViaCep);
+      const estado = await estadosRepository.findOneBy({
+        sigla: enderecoViaCep.uf,
+      });
+      if (!estado) {
+        throw new NotFoundError("Estado não encontrado");
+      }
+
+      const cidade = await cidadeRepository.findOne({
+        where: {
+          nome: enderecoViaCep.localidade,
+          estado: {
+            id: estado.id,
+          },
+        },
+        relations: ["estado"],
+      });
+      if (!cidade) {
+        throw new NotFoundError("Cidade não encontrado");
+      }
+      validated.logradouro = enderecoViaCep.logradouro;
+      validated.bairro = enderecoViaCep.bairro;
+      const newEndereco = enderecoRepository.create({
+        ...validated,
+
+        pessoa,
+        cidade,
+      });
+      // enderecoRepository.merge(newEndereco, { pessoa, cidade });
+      await enderecoRepository.save(newEndereco);
+      return res.status(201).json(newEndereco);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Erro ao criar endereço", error });
+    }
+  }
+
+  async createEndResponsavel(req: Request, res: Response) {
+    try {
+      const { idResponsavel } = req.params;
+      const responsavel = await responsaveisRepository.findOneBy({
+        id: Number(idResponsavel),
+      });
+      if (!responsavel) {
+        return res.status(404).json({ message: "Pessoa não identificada" });
+      }
+      const validated = createEnderecoResponsavelSchema.parse(req.body);
       const newEndereco = enderecoRepository.create(validated);
+      enderecoRepository.merge(newEndereco, { responsavel: responsavel });
       await enderecoRepository.save(newEndereco);
       return res.status(201).json(newEndereco);
     } catch (error) {

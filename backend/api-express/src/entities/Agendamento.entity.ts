@@ -1,5 +1,6 @@
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   OneToMany,
   OneToOne,
@@ -37,7 +38,7 @@ export class Agendamento {
   @Column({ nullable: true })
   dataAlteracao: Date;
 
-  @Column({ nullable: true })
+  @DeleteDateColumn({ nullable: true })
   dataExclusao: Date;
 
   @OneToOne(() => AvaliacaoOdonto, (avaliacao) => avaliacao.agendamento)

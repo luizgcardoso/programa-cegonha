@@ -7,6 +7,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   OneToOne,
+  DeleteDateColumn,
 } from "typeorm";
 import { Gestacao } from "./Gestacao.entity";
 import { Vacinacao } from "./Vacinacao.entity";
@@ -41,7 +42,7 @@ export class Bebe {
   @CreateDateColumn({ nullable: true })
   dataAlteracao: Date;
 
-  @Column({ nullable: true })
+  @DeleteDateColumn({ nullable: true })
   dataExclusao: Date;
 
   @ManyToOne(() => Gestacao, (gestacao) => gestacao.bebes)

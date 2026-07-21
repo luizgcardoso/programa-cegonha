@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const createCidadeSchema = z.object({
-  estadoId: z.number(),
   nome: z.string().min(3),
   status: z.boolean().default(true),
 });

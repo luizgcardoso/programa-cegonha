@@ -11,7 +11,11 @@ export {
 } from "./responsavel.schema";
 export { createGestacaoSchema, updateGestacaoSchema } from "./gestacao.schema";
 export { createContatoSchema, updateContatoSchema } from "./contato.schema";
-export { createEnderecoSchema, updateEnderecoSchema } from "./endereco.schema";
+export {
+  createEnderecoPessoaSchema,
+  createEnderecoResponsavelSchema,
+  updateEnderecoSchema,
+} from "./endereco.schema";
 export { createVisitaSchema, updateVisitaSchema } from "./visita.schema";
 export {
   createVisitaRecemNascidoSchema,
