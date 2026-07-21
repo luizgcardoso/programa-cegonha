@@ -1,20 +1,20 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Cidade } from "./Cidade.entity";
 
-@Entity('estados')
+@Entity("estados")
 export class Estado {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number;
 
   @Column()
-  nome: string
+  nome: string;
 
   @Column()
-  sigla: string 
+  sigla: string;
 
   @Column()
-  status: boolean
+  status: boolean;
 
-  @OneToMany(() => Cidade, cidade => cidade.estado)
-  cidades: Cidade[]
+  @OneToMany(() => Cidade, (cidade) => cidade.estado)
+  cidades: Cidade[];
 }

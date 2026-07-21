@@ -15,7 +15,7 @@ import { AfericaoBebe } from "./AfericaoBebe.entity";
 @Entity("visitaRecemNascido")
 export class VisitaRecemNascido {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column() //enum
   tipoAmamentacao: string;

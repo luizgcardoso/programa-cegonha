@@ -13,7 +13,7 @@ import { Endereco } from "./Endereco.entity";
 @Entity("cidades")
 export class Cidade {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   nome: string;

@@ -15,7 +15,7 @@ import { VisitaRecemNascido } from "./VisitaRecemNascido.entity";
 @Entity("bebes")
 export class Bebe {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   nome: string;

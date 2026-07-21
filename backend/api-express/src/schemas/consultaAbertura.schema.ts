@@ -9,11 +9,11 @@ const createConsultaAberturaSchema = z.object({
   nivelRisco: z.boolean(),
   dataUltimaMenstruacao: z.coerce.date(),
   idadeGestacional: z.number().int().min(0).max(42),
-  comorbidades: z.string().nullable().optional(),
-  prescricaoExames: z.string().nullable().optional(),
-  prescricaoPreventivos: z.string().nullable().optional(),
-  sintomas: z.string().nullable().optional(),
-  observacoes: z.string().nullable().optional(),
+  comorbidades: z.string().optional(),
+  prescricaoExames: z.string().optional(),
+  prescricaoPreventivos: z.string().optional(),
+  sintomas: z.string().optional(),
+  observacoes: z.string().optional(),
   status: z.boolean().default(true),
 });
 
@@ -23,11 +23,11 @@ const updateConsultaAberturaSchema = z.object({
   nivelRisco: z.boolean().optional(),
   dataUltimaMenstruacao: z.coerce.date().optional(),
   idadeGestacional: z.number().int().min(0).max(42).optional(),
-  comorbidades: z.string().nullable().optional(),
-  prescricaoExames: z.string().nullable().optional(),
-  prescricaoPreventivos: z.string().nullable().optional(),
-  sintomas: z.string().nullable().optional(),
-  observacoes: z.string().nullable().optional(),
+  comorbidades: z.string().optional(),
+  prescricaoExames: z.string().optional(),
+  prescricaoPreventivos: z.string().optional(),
+  sintomas: z.string().optional(),
+  observacoes: z.string().optional(),
   status: z.boolean().optional(),
 });
 

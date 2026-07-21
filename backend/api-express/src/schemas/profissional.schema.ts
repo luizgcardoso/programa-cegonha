@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const createProfissionalSchema = z.object({
-  pessoaId: z.string().uuid().optional(),
+  pessoaId: z.number(),
   matricula: z.string().min(1),
   cargo: z.string().min(1),
   equipe: z.string().min(1),

@@ -14,8 +14,8 @@ export class Endereco {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column() //true: pessoa, false: responsavel
-  titular: boolean;
+  @Column()
+  isResponsavel: boolean;
 
   @Column()
   logradouro: string;

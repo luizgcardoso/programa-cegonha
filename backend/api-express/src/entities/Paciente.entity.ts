@@ -15,7 +15,7 @@ import { Responsavel } from "./Responsavel.entity";
 @Entity("pacientes")
 export class Paciente {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   hasResponsavel: boolean;

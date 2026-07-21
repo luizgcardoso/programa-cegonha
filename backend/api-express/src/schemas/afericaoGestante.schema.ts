@@ -5,21 +5,21 @@ const createAfericaoGestanteSchema = z.object({
   peso: z.number().positive(),
   pressaoArterial: z.number().positive(),
   alturaUterina: z.number().positive(),
-  batimentosCardiacos: z.number().int().positive(),
+  batimentosCardiacos: z.number().positive(),
   edemas: z.boolean(),
-  movimentosFetais: z.boolean(),
-  avaliacaoEdemas: z.string().nullable().optional(),
+  rimovimentosFetaissco: z.boolean(),
+  avaliacaoEdemas: z.string().optional(),
 });
 
 const updateAfericaoGestanteSchema = z.object({
-  glicose: z.number().positive().optional(),
-  peso: z.number().positive().optional(),
-  pressaoArterial: z.number().positive().optional(),
-  alturaUterina: z.number().positive().optional(),
-  batimentosCardiacos: z.number().int().positive().optional(),
-  edemas: z.boolean().optional(),
-  movimentosFetais: z.boolean().optional(),
-  avaliacaoEdemas: z.string().nullable().optional(),
+  glicose: z.number().positive(),
+  peso: z.number().positive(),
+  pressaoArterial: z.number().positive(),
+  alturaUterina: z.number().positive(),
+  batimentosCardiacos: z.number().positive(),
+  edemas: z.boolean(),
+  rimovimentosFetaissco: z.boolean(),
+  avaliacaoEdemas: z.string().optional(),
 });
 
 export { createAfericaoGestanteSchema, updateAfericaoGestanteSchema };

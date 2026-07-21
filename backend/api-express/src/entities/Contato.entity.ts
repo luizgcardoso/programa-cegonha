@@ -11,7 +11,7 @@ import { Responsavel } from "./Responsavel.entity";
 @Entity("contatos")
 export class Contato {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column() //true: pessoa, false: responsavel
   titular: boolean;

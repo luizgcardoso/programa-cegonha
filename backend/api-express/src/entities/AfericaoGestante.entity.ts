@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ConsultaAbertura } from "./ConsultaAbertura.entity";
 import { ConsultaPreNatal } from "./ConsultaPreNatal.entity";
 

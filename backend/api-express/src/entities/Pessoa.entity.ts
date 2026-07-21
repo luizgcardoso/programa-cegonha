@@ -1,56 +1,65 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from "typeorm"
-import { Paciente } from "./Paciente.entity"
-import { Profissional } from "./Profissional.entity"
-import { Endereco } from "./Endereco.entity"
-import { Contato } from "./Contato.entity"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  OneToOne,
+  DeleteDateColumn,
+} from "typeorm";
+import { Paciente } from "./Paciente.entity";
+import { Profissional } from "./Profissional.entity";
+import { Endereco } from "./Endereco.entity";
+import { Contato } from "./Contato.entity";
 
-@Entity('pessoas')
+@Entity("pessoas")
 export class Pessoa {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number;
 
   @Column() // true: profissional, false: paciente
-  tipoPessoa: boolean
+  tipoPessoa: boolean;
 
   @Column()
-  nome: string
+  nome: string;
 
   @Column()
-  dataNascimento: Date
+  dataNascimento: Date;
 
   @Column()
-  sexo: boolean
+  sexo: boolean;
 
   @Column()
-  estadoCivil: string
+  estadoCivil: string;
 
   @Column()
-  nacionalidade: string
+  nacionalidade: string;
 
   @Column({ unique: true })
-  cpf: string
+  cpf: string;
 
   @Column()
-  dataCriacao: Date
+  dataCriacao: Date;
 
   @Column({ nullable: true })
-  dataAlteracao: Date
+  dataAlteracao: Date;
 
-  @Column({ nullable: true })
-  dataExclusao: Date
+  @DeleteDateColumn({ nullable: true })
+  dataExclusao: Date;
 
   @Column()
-  status: boolean
+  status: boolean;
 
-  @OneToOne(() => Paciente, paciente => paciente.pessoa, {nullable: true})
-  paciente: Paciente
+  @OneToOne(() => Paciente, (paciente) => paciente.pessoa, { nullable: true })
+  paciente: Paciente;
 
-  @OneToOne(() => Profissional, profissional => profissional.pessoa, {nullable: true})
-  profissional: Profissional
+  @OneToOne(() => Profissional, (profissional) => profissional.pessoa, {
+    nullable: true,
+  })
+  profissional: Profissional;
 
-  @OneToMany(() => Endereco, endereco => endereco.pessoa)
-  enderecos: Endereco[]
+  @OneToMany(() => Endereco, (endereco) => endereco.pessoa)
+  enderecos: Endereco[];
 
-  @OneToMany(() => Contato, contato => contato.pessoa)
-  contatos: Contato[]
+  @OneToMany(() => Contato, (contato) => contato.pessoa)
+  contatos: Contato[];
 }

@@ -5,14 +5,14 @@ const createAvaliacaoOdontoSchema = z.object({
   profissionalId: z.number(),
   agendamentoId: z.number().optional(),
   resultado: z.string().min(1),
-  prescricoes: z.string().nullable().optional(),
-  observacoes: z.string().nullable().optional(),
+  prescricoes: z.string().optional(),
+  observacoes: z.string().optional(),
 });
 
 const updateAvaliacaoOdontoSchema = z.object({
   resultado: z.string().min(1).optional(),
-  prescricoes: z.string().nullable().optional(),
-  observacoes: z.string().nullable().optional(),
+  prescricoes: z.string().optional(),
+  observacoes: z.string().optional(),
 });
 
 export { createAvaliacaoOdontoSchema, updateAvaliacaoOdontoSchema };

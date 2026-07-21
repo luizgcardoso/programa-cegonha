@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { date, z } from "zod";
 
 const createPessoaSchema = z.object({
   nome: z.string().min(3),
@@ -8,6 +8,7 @@ const createPessoaSchema = z.object({
   estadoCivil: z.string().min(1),
   nacionalidade: z.string().min(1),
   tipoPessoa: z.boolean(),
+  dataCriacao: z.coerce.date().default(() => new Date()),
   status: z.boolean().default(true),
 });
 
@@ -17,6 +18,7 @@ const updatePessoaSchema = z.object({
   sexo: z.boolean().optional(),
   estadoCivil: z.string().min(1).optional(),
   nacionalidade: z.string().min(1).optional(),
+  dataAlteracao: z.coerce.date().default(() => new Date()),
   status: z.boolean().optional(),
 });
 
