@@ -1,11 +1,16 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
-import { Paciente } from "./Paciente";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from "typeorm";
+import { Gestacao } from "./Gestacao.entity";
 
-@Entity('exames')
+@Entity("exames")
 export class Exame {
   @PrimaryGeneratedColumn()
   id: number;
-
 
   @Column()
   tipo: string;
@@ -28,8 +33,7 @@ export class Exame {
   @Column({ nullable: true })
   dataAlteracao: Date;
 
-  @ManyToOne(() => Paciente, paciente => paciente.gestacoes)
-  @JoinColumn({ name: 'pacientes_idPaciente' })
-  paciente: Paciente;
-
+  @ManyToOne(() => Gestacao, (gestacao) => gestacao.exames)
+  @JoinColumn({ name: "idGestacao" })
+  gestacao: Gestacao;
 }

@@ -1,23 +1,20 @@
 import { z } from "zod";
 import { Request, Response, NextFunction } from "express";
-import { ApiError } from "../utils/api-error";
+import { BadRequestError } from "../utils/api-error";
 
 export function validate(schema: z.ZodSchema) {
-    return (req: Request, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.body);
 
-        
     try {
-        const result = schema.safeParse(req.body);
-        if (!result.success) {
-            return res.status(400).json({
-                errors: result.error.flatten()
-            });
-        }
-
-
-    } catch(error){
-    if(error instanceof z.ZodError){
-        error.issues; 
+      if (!result.success) {
+        return res.status(400).json({
+          errors: result.error.flatten,
+        });
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        error.issues;
         /* [
         {
             expected: 'string',
@@ -32,10 +29,12 @@ export function validate(schema: z.ZodSchema) {
             message: 'Invalid input: expected number'
         }
         ] */
-    }
-        
-        req.body = result.data;
+      }
 
-        next();
-    };
+      req.body = result.data;
+
+      next();
+    }
+    throw new BadRequestError("[teste] Bad Request");
+  };
 }
