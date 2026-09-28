@@ -8,8 +8,6 @@ import {
 } from "typeorm";
 import { Paciente } from "./Paciente.entity";
 import { Profissional } from "./Profissional.entity";
-import { Endereco } from "./Endereco.entity";
-import { Contato } from "./Contato.entity";
 
 @Entity("pessoas")
 export class Pessoa {
@@ -22,10 +20,13 @@ export class Pessoa {
   @Column()
   nome: string;
 
+  @Column({ unique: true })
+  cpf: string;
+
   @Column()
   dataNascimento: Date;
 
-  @Column()
+  @Column() // true: masculino, false: feminino
   sexo: boolean;
 
   @Column()
@@ -33,9 +34,6 @@ export class Pessoa {
 
   @Column()
   nacionalidade: string;
-
-  @Column({ unique: true })
-  cpf: string;
 
   @Column()
   dataCriacao: Date;
@@ -47,7 +45,7 @@ export class Pessoa {
   dataExclusao: Date;
 
   @Column()
-  status: boolean;
+  status: string;
 
   @OneToOne(() => Paciente, (paciente) => paciente.pessoa, { nullable: true })
   paciente: Paciente;
@@ -56,10 +54,4 @@ export class Pessoa {
     nullable: true,
   })
   profissional: Profissional;
-
-  @OneToMany(() => Endereco, (endereco) => endereco.pessoa)
-  enderecos: Endereco[];
-
-  @OneToMany(() => Contato, (contato) => contato.pessoa)
-  contatos: Contato[];
 }
