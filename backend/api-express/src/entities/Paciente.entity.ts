@@ -11,7 +11,7 @@ import {
 } from "typeorm";
 import { Pessoa } from "./Pessoa.entity";
 import { Gestacao } from "./Gestacao.entity";
-import { Responsavel } from "./Responsavel.entity";
+import { Acompanhamento } from "./Acompanhamento.entity";
 
 @Entity("pacientes")
 export class Paciente {
@@ -20,6 +20,12 @@ export class Paciente {
 
   @Column()
   hasResponsavel: boolean;
+
+  @Column({ nullable: true })
+  nomeResponsavel: string;
+
+  @Column({ nullable: true })
+  telefoneResponsavel: string;
 
   // @Column()
   // qtdGestacoes: number;
@@ -40,7 +46,7 @@ export class Paciente {
   dataExclusao: Date;
 
   @Column()
-  status: boolean;
+  status: string;
 
   @OneToOne(() => Pessoa, (pessoa) => pessoa.paciente)
   @JoinColumn({ name: "pessoas_idPessoas" })
@@ -49,13 +55,6 @@ export class Paciente {
   @OneToMany(() => Gestacao, (gestacao) => gestacao.paciente)
   gestacoes: Gestacao[];
 
-  @ManyToMany(() => Responsavel, (responsavel) => responsavel.pacientes, {
-    nullable: true,
-  })
-  @JoinTable({
-    name: "pacientes_responsaveis",
-    joinColumn: { name: "paciente_id", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "responsavel_id", referencedColumnName: "id" },
-  })
-  responsaveis: Responsavel[];
+  @OneToOne(() => Acompanhamento, (acompanhamento) => acompanhamento.paciente)
+  acompanhamento: Acompanhamento;
 }

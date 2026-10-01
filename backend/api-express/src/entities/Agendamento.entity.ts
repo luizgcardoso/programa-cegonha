@@ -6,11 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { AvaliacaoOdonto } from "./AvaliacaoOdonto.entity";
-import { Visita } from "./Visita.entity";
-import { ConsultaPreNatal } from "./ConsultaPreNatal.entity";
-import { ConsultaAbertura } from "./ConsultaAbertura.entity";
-import { VisitaRecemNascido } from "./VisitaRecemNascido.entity";
+import { Paciente } from "./Paciente.entity";
 
 @Entity("agendamentos")
 export class Agendamento {
@@ -41,27 +37,6 @@ export class Agendamento {
   @DeleteDateColumn({ nullable: true })
   dataExclusao: Date;
 
-  @OneToOne(() => AvaliacaoOdonto, (avaliacao) => avaliacao.agendamento)
-  avaliacoes: AvaliacaoOdonto;
-
-  @OneToOne(
-    () => VisitaRecemNascido,
-    (visitaRecemNascido) => visitaRecemNascido.agendamento,
-  )
-  visitaRecemNascido: VisitaRecemNascido;
-
-  @OneToOne(() => Visita, (visita) => visita.agendamento)
-  visitas: Visita;
-
-  @OneToOne(
-    () => ConsultaPreNatal,
-    (consultasPreNatal) => consultasPreNatal.agendamento,
-  )
-  consultasPreNatal: ConsultaPreNatal;
-
-  @OneToOne(
-    () => ConsultaAbertura,
-    (consultaAbertura) => consultaAbertura.agendamento,
-  )
-  consultaAbertura: ConsultaAbertura;
+  @OneToOne(() => Paciente, (paciente) => paciente.acompanhamento, { nullable: true })
+  paciente: Paciente;
 }

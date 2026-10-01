@@ -8,12 +8,7 @@ import {
   DeleteDateColumn,
 } from "typeorm";
 import { Pessoa } from "./Pessoa.entity";
-import { AvaliacaoOdonto } from "./AvaliacaoOdonto.entity";
 import { Visita } from "./Visita.entity";
-import { AreaCobertura } from "./AreaCobertura.entity";
-import { VisitaRecemNascido } from "./VisitaRecemNascido.entity";
-import { ConsultaPreNatal } from "./ConsultaPreNatal.entity";
-import { ConsultaAbertura } from "./ConsultaAbertura.entity";
 
 @Entity("profissionais")
 export class Profissional {
@@ -29,6 +24,9 @@ export class Profissional {
   @Column()
   equipe: string;
 
+  @Column() //enum
+  areaCobertura: string;
+
   @Column()
   dataCriacao: Date;
 
@@ -39,40 +37,9 @@ export class Profissional {
   dataExclusao: Date;
 
   @Column()
-  status: boolean;
+  status: string;
 
   @OneToOne(() => Pessoa, (pessoa) => pessoa.profissional)
   @JoinColumn({ name: "pessoas_idPessoas" })
   pessoa: Pessoa;
-
-  @OneToMany(
-    () => AvaliacaoOdonto,
-    (avaliacaoOdonto) => avaliacaoOdonto.profissionais,
-  )
-  avaliacoesOdonto: AvaliacaoOdonto[];
-
-  @OneToMany(() => Visita, (visita) => visita.profissional)
-  visitas: Visita[];
-
-  @OneToMany(
-    () => ConsultaPreNatal,
-    (consultaPreNatal) => consultaPreNatal.profissional,
-  )
-  consultasPreNatal: ConsultaPreNatal[];
-
-  @OneToMany(
-    () => ConsultaAbertura,
-    (consultaAbertura) => consultaAbertura.profissional,
-  )
-  consultaAbertura: ConsultaAbertura;
-
-  @OneToMany(
-    () => VisitaRecemNascido,
-    (visitaRecemNascido) => visitaRecemNascido.profissional,
-  )
-  visitaRecemNascido: VisitaRecemNascido;
-
-  @OneToOne(() => AreaCobertura, (areaCobertura) => areaCobertura.profissional)
-  @JoinColumn({ name: "idAreaCobertura" })
-  areaCobertura: AreaCobertura;
 }

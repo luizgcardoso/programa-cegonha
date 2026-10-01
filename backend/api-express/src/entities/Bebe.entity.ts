@@ -1,60 +1,60 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  JoinColumn,
-  ManyToOne,
-  CreateDateColumn,
-  OneToOne,
-  DeleteDateColumn,
-} from "typeorm";
-import { Gestacao } from "./Gestacao.entity";
-import { Vacinacao } from "./Vacinacao.entity";
-import { VisitaRecemNascido } from "./VisitaRecemNascido.entity";
+// import {
+//   Entity,
+//   PrimaryGeneratedColumn,
+//   Column,
+//   OneToMany,
+//   JoinColumn,
+//   ManyToOne,
+//   CreateDateColumn,
+//   OneToOne,
+//   DeleteDateColumn,
+// } from "typeorm";
+// import { Gestacao } from "./Gestacao.entity";
+// import { Vacinacao } from "./Vacinacao.entity";
+// import { VisitaRecemNascido } from "./VisitaRecemNascido.entity";
 
-@Entity("bebes")
-export class Bebe {
-  @PrimaryGeneratedColumn()
-  id: number;
+// @Entity("bebes")
+// export class Bebe {
+//   @PrimaryGeneratedColumn()
+//   id: number;
 
-  @Column()
-  nome: string;
+//   @Column()
+//   nome: string;
 
-  @Column()
-  dataNascimento: Date;
+//   @Column()
+//   dataNascimento: Date;
 
-  @Column()
-  horaNascimento: Date;
+//   @Column()
+//   horaNascimento: Date;
 
-  @Column()
-  sexo: boolean;
+//   @Column()
+//   sexo: boolean;
 
-  @Column() // true = parto normal, false = cesariana
-  tipoParto: boolean;
+//   @Column() // true = parto normal, false = cesariana
+//   tipoParto: boolean;
 
-  @Column()
-  status: boolean;
+//   @Column()
+//   status: boolean;
 
-  @CreateDateColumn()
-  dataCriacao: Date;
+//   @CreateDateColumn()
+//   dataCriacao: Date;
 
-  @CreateDateColumn({ nullable: true })
-  dataAlteracao: Date;
+//   @CreateDateColumn({ nullable: true })
+//   dataAlteracao: Date;
 
-  @DeleteDateColumn({ nullable: true })
-  dataExclusao: Date;
+//   @DeleteDateColumn({ nullable: true })
+//   dataExclusao: Date;
 
-  @ManyToOne(() => Gestacao, (gestacao) => gestacao.bebes)
-  @JoinColumn({ name: "idGestacao" })
-  gestacao: Gestacao;
+//   @ManyToOne(() => Gestacao, (gestacao) => gestacao.bebes)
+//   @JoinColumn({ name: "idGestacao" })
+//   gestacao: Gestacao;
 
-  @OneToOne(
-    () => VisitaRecemNascido,
-    (visitaRecemNascido) => visitaRecemNascido.bebe,
-  )
-  visitaRecemNascido: VisitaRecemNascido;
+//   @OneToOne(
+//     () => VisitaRecemNascido,
+//     (visitaRecemNascido) => visitaRecemNascido.bebe,
+//   )
+//   visitaRecemNascido: VisitaRecemNascido;
 
-  @OneToMany(() => Vacinacao, (vacinacao) => vacinacao.bebe)
-  vacinacoes: Vacinacao[];
-}
+//   @OneToMany(() => Vacinacao, (vacinacao) => vacinacao.bebe)
+//   vacinacoes: Vacinacao[];
+// }

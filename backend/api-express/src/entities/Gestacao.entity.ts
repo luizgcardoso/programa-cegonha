@@ -10,44 +10,39 @@ import {
 } from "typeorm";
 import { Bebe } from "./Bebe.entity";
 import { Paciente } from "./Paciente.entity";
-import { Exame } from "./Exame.entity";
-import { Vacinacao } from "./Vacinacao.entity";
-import { AvaliacaoOdonto } from "./AvaliacaoOdonto.entity";
 import { Visita } from "./Visita.entity";
-import { ConsultaPreNatal } from "./ConsultaPreNatal.entity";
-import { ConsultaAbertura } from "./ConsultaAbertura.entity";
 
 @Entity("gestacoes")
 export class Gestacao {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column() // true: vulnerabilidade, false: habitual
-  nivelRisco: boolean;
+  // @Column() // true: vulnerabilidade, false: habitual
+  // nivelRisco: string;
 
-  // @Column()
-  // dataUltimaMenstruacao: Date;
+  @Column()
+  dataUltimaMenstruacao: Date;
 
-  // @Column()
-  // dataProvavelParto: Date;
+  @Column()
+  dataProvavelParto: Date;
 
   @Column({ nullable: true })
   dataParto: Date;
 
   @Column({ nullable: true })
-  tipoParto: boolean; // true = parto normal, false = cesariana
+  tipoParto: string; // "normal" = parto normal, "cesariana" = cesariana
 
   @Column()
   idadeGestacional: number;
 
-  // @Column()
-  // qtdConsultasRealizadas: number;
-
-  // @Column()
-  // qtdVisitasRealizadas: number;
+  @Column()
+  qtdConsultasRealizadas: number;
 
   @Column()
-  status: boolean;
+  qtdVisitasRealizadas: number;
+
+  @Column()
+  status: string;
 
   @CreateDateColumn()
   dataCriacao: Date;
